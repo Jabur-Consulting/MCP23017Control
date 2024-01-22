@@ -71,11 +71,11 @@ Sets the mode for all pins across both Bank A and Bank B of the MCP23017.
   
 ### readAllPins()
 
-Returns the combined state of all 16 outputs as a 16-bit value.
+Returns the combined state of all 16 pins as a 16-bit value.
 
 ### writeAllPins(uint16_t value)
 
-Writes a 16-bit value to set the states of all 16 outputs.
+Writes a 16-bit value to set the states of all 16 pins.
 
 - `value`: 16-bit value representing the state of each pin.
 
@@ -166,9 +166,7 @@ uint16_t allAllPins = mcp.readAllPins();
 
 ```cpp
 // Set the first 8 pins to HIGH and the rest to LOW
-mcp.writeAllPins(0x00FF
-
-);
+mcp.writeAllPins(0x00FF);
 ```
 
 ### Using the getBitmask Utility
