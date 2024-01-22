@@ -28,13 +28,13 @@ void loop() {
   // Read the current state of Bank B
   byte bankBState = mcp.readBank(1);
 
-  uint16_t allOutputs = mcp.readOutputs();
+  uint16_t allPins = mcp.readAllPins();
 
   // Set pin 3 to HIGH
   mcp.setPinHigh(3);
 
   // Set the first 8 pins to HIGH and the rest to LOW
-  mcp.writeOutputs(0x00FF);
+  mcp.writeAllPins(0x00FF);
 
   // Get a bitmask with only the 5th bit set
   uint16_t bitmask = MCP23017Control::getBitmask(5);
