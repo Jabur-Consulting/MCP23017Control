@@ -1,4 +1,4 @@
-#include "MCP23017Control.h"
+#include "MCP23017Control.h" // Version 1.0.0
 
 // Create two instances of MCP23017Control for each MCP23017 device
 MCP23017Control mcp(0x20);  // Device 1: controls pins 0-15
