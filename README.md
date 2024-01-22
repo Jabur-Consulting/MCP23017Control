@@ -68,7 +68,7 @@ Reads and returns the state of all pins in either Bank A or Bank B.
 Sets the mode for all pins across both Bank A and Bank B of the MCP23017.
 
 - `mode`: Mode to set for all pins (`INPUT`, `OUTPUT`, `INPUT_PULLUP`).
-  
+
 ### readAllPins()
 
 Returns the combined state of all 16 pins as a 16-bit value.
@@ -174,3 +174,40 @@ mcp.writeAllPins(0x00FF);
 ```cpp
 // Get a bitmask with only the 5th bit set
 uint16_t bitmask = MCP23017Control::getBitmask(5);
+```
+
+## Advanced Usage Example
+
+### Toggle All Pins
+
+This example demonstrates toggling all pins on and off in an alternating pattern.
+
+```cpp
+void setup() {
+    mcp.begin();
+    mcp.setAllPinsMode(OUTPUT); // Set all pins as outputs
+}
+
+void loop() {
+    mcp.writeAllPins(0xFFFF); // Set all pins HIGH
+    delay(500);
+    mcp.writeAllPins(0x0000); // Set all pins LOW
+    delay(500);
+}
+```
+
+## Error Handling and Limitations
+
+- The `MCP23017Control` class does not currently provide explicit error handling for I²C communication failures.
+- Ensure that the I²C address provided to the constructor matches the hardware configuration.
+- The class is designed for standard Arduino boards and may require modifications for use with other microcontroller platforms.
+
+## Versioning and Updates
+
+### Current Version: 1.0.0
+
+#### Changelog
+
+**1.0.0**
+- Initial release of `MCP23017Control`.
+- Support for basic I/O operations, bank-level control, and pin mode configurations.
