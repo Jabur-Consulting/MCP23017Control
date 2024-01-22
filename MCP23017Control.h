@@ -82,6 +82,22 @@ public:
     return (regValue & (1 << pinNumber)) ? HIGH : LOW;
   }
 
+  void setBankMode(byte bank, byte mode) {
+    byte iodirReg = (bank == 0) ? MCP23017Registers::IODIRA : MCP23017Registers::IODIRB;
+    byte gppuReg = (bank == 0) ? MCP23017Registers::GPPUA : MCP23017Registers::GPPUB;
+
+    byte iodirVal = (mode == OUTPUT) ? 0x00 : 0xFF;
+    byte gppuVal = (mode == INPUT_PULLUP) ? 0xFF : 0x00;
+
+    writeRegister(iodirReg, iodirVal);
+    writeRegister(gppuReg, gppuVal);
+  }
+
+  void setAllPinsMode(byte mode) {
+    setBankMode(0, mode);  // Set Bank A
+    setBankMode(1, mode);  // Set Bank B
+  }
+
   void writeBank(byte bank, byte value) {
     byte regAddress = (bank == 0) ? MCP23017Registers::GPIOA : MCP23017Registers::GPIOB;
     writeRegister(regAddress, value);
