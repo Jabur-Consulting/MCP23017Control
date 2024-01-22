@@ -82,6 +82,10 @@ public:
     return (regValue & (1 << pinNumber)) ? HIGH : LOW;
   }
 
+  void setPinHigh(byte outputNumber) {
+    digitalWrite(outputNumber, HIGH);
+  }
+
   void setBankMode(byte bank, byte mode) {
     byte iodirReg = (bank == 0) ? MCP23017Registers::IODIRA : MCP23017Registers::IODIRB;
     byte gppuReg = (bank == 0) ? MCP23017Registers::GPPUA : MCP23017Registers::GPPUB;
@@ -91,11 +95,6 @@ public:
 
     writeRegister(iodirReg, iodirVal);
     writeRegister(gppuReg, gppuVal);
-  }
-
-  void setAllPinsMode(byte mode) {
-    setBankMode(0, mode);  // Set Bank A
-    setBankMode(1, mode);  // Set Bank B
   }
 
   void writeBank(byte bank, byte value) {
@@ -108,17 +107,18 @@ public:
     return readRegister(regAddress);
   }
 
-  uint16_t readOutputs() {
+  void setAllPinsMode(byte mode) {
+    setBankMode(0, mode);  // Set Bank A
+    setBankMode(1, mode);  // Set Bank B
+  }
+
+  uint16_t readAllPins() {
     uint8_t gpioAValue = readRegister(MCP23017Registers::GPIOA);
     uint8_t gpioBValue = readRegister(MCP23017Registers::GPIOB);
     return ((uint16_t)gpioBValue << 8) | gpioAValue;
   }
 
-  void setPinHigh(byte outputNumber) {
-    digitalWrite(outputNumber, HIGH);
-  }
-
-  void writeOutputs(uint16_t value) {
+  void writeAllPins(uint16_t value) {
     byte gpioAValue = value & 0xFF;
     byte gpioBValue = (value >> 8) & 0xFF;
     writeRegister(MCP23017Registers::GPIOA, gpioAValue);
