@@ -37,6 +37,19 @@ Reads and returns the state (HIGH or LOW) of a specified input pin.
 
 - `pinNumber`: Pin number (0-15).
 
+### setPinHigh(byte outputNumber)
+
+Sets a specified output pin to high.
+
+- `outputNumber`: Pin number (0-15).
+
+### setBankMode(byte bank, byte mode)
+
+Sets the mode for all pins in a specified bank (Bank A or Bank B) of the MCP23017.
+
+- `bank`: Bank number (0 for Bank A, 1 for Bank B).
+- `mode`: Mode to set for all pins in the specified bank (`INPUT`, `OUTPUT`, `INPUT_PULLUP`).
+
 ### writeBank(byte bank, byte value)
 
 Writes a byte value to all pins of either Bank A or Bank B.
@@ -50,15 +63,15 @@ Reads and returns the state of all pins in either Bank A or Bank B.
 
 - `bank`: Bank number (0 for Bank A, 1 for Bank B).
 
+### setAllPinsMode(byte mode)
+
+Sets the mode for all pins across both Bank A and Bank B of the MCP23017.
+
+- `mode`: Mode to set for all pins (`INPUT`, `OUTPUT`, `INPUT_PULLUP`).
+  
 ### readOutputs()
 
 Returns the combined state of all 16 outputs as a 16-bit value.
-
-### setPinHigh(byte outputNumber)
-
-Sets a specified output pin to high.
-
-- `outputNumber`: Pin number (0-15).
 
 ### writeOutputs(uint16_t value)
 
@@ -109,6 +122,23 @@ if (state == HIGH) {
 }
 ```
 
+### Setting a Specific Pin High
+
+```cpp
+// Set pin 3 to HIGH
+mcp.setPinHigh(3);
+```
+
+### Configuring a Bank Mode
+
+```cpp
+// Set all pins in Bank A to OUTPUT
+mcp.setBankMode(0, OUTPUT);
+
+// Set all pins in Bank B to INPUT_PULLUP
+mcp.setBankMode(1, INPUT_PULLUP);
+```
+
 ### Writing to and Reading from Banks
 
 ```cpp
@@ -119,17 +149,17 @@ mcp.writeBank(0, 0xFF); // Set all pins in Bank A to HIGH
 byte bankBState = mcp.readBank(1);
 ```
 
+### Configuring All Pins Mode 
+
+```cpp
+// Set all pins to be inputs with pull-up resistors
+mcp.setAllPinsMode(INPUT_PULLUP);
+```
+
 ### Reading the State of All Outputs
 
 ```cpp
 uint16_t allOutputs = mcp.readOutputs();
-```
-
-### Setting a Specific Pin High
-
-```cpp
-// Set pin 3 to HIGH
-mcp.setPinHigh(3);
 ```
 
 ### Writing to All Outputs
