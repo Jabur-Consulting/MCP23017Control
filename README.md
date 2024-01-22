@@ -69,11 +69,11 @@ Sets the mode for all pins across both Bank A and Bank B of the MCP23017.
 
 - `mode`: Mode to set for all pins (`INPUT`, `OUTPUT`, `INPUT_PULLUP`).
   
-### readOutputs()
+### readAllPins()
 
 Returns the combined state of all 16 outputs as a 16-bit value.
 
-### writeOutputs(uint16_t value)
+### writeAllPins(uint16_t value)
 
 Writes a 16-bit value to set the states of all 16 outputs.
 
@@ -156,17 +156,17 @@ byte bankBState = mcp.readBank(1);
 mcp.setAllPinsMode(INPUT_PULLUP);
 ```
 
-### Reading the State of All Outputs
+### Reading the State of All Pins
 
 ```cpp
-uint16_t allOutputs = mcp.readOutputs();
+uint16_t allAllPins = mcp.readAllPins();
 ```
 
-### Writing to All Outputs
+### Writing to All Pins
 
 ```cpp
 // Set the first 8 pins to HIGH and the rest to LOW
-mcp.writeOutputs(0x00FF
+mcp.writeAllPins(0x00FF
 
 );
 ```
